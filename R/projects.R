@@ -2,7 +2,7 @@ projects_list <- function(filter_organization = "virga-labs", filter_slug = NULL
   query <- purrr::compact(list(
     `filter[slug]` = filter_slug,
     `filter[name]` = filter_name,
-    `filter[organization]` = prefix_o(filter_organization),
+    `filter[organization]` = prefix$organization(filter_organization),
     `page[cursor]` = page
   ))
   req <- req_init() |>
