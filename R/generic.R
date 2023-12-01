@@ -34,12 +34,32 @@ req_do <- function(req) {
   return(out)
 }
 
-prefix_o <- function(x) {
-  if (grepl("^o\\:", x))
-    x
-  else
-    paste0("o:", x)
-}
+id_segments <- c(organization = "o", project = "p", resource = "r", string = "s", language = "l")
+id_segment_nms <- rlang::set_names(names(id_segments))
+prefix <- purrr::map(id_segments, \(.x) {
+  rlang::new_function(rlang::pairlist2(x = , remove = FALSE), body = rlang::expr({
+    prefix <- !!glue::glue("^{.x}\\:")
+    if (is.null(x))
+      ""
+    else if (grepl(prefix, x)) {
+      if (remove)
+        stringr::str_remove(x, prefix)
+      else
+        x
+    } else
+      paste0(!!glue::glue("{.x}:"), x)
+  }))
+})
+
+filter_string <- rlang::new_function(rlang::pairlist2(!!!purrr::map(id_segment_nms, \(.x) NULL)), body = rlang::expr({
+  segs <- !!!rlang::parse_expr(capture.output(dput(rlang::list2(!!!purrr::map(id_segment_nms, rlang::sym)))))
+  pieces <- purrr::imap_chr(segs, \(.x, .y) {
+    prefix[[.y]](.x)
+  })
+  glue::glue_collapse(pieces[nzchar(pieces)], sep = ":")
+}))
+
+
 
 #' Authorize an API Request
 #' @description
