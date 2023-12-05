@@ -60,7 +60,8 @@ filter_string <- rlang::new_function(rlang::pairlist2(!!!purrr::map(id_segment_n
 }))
 
 
-compact_concat <- function(x) {
+compact_concat <- function(...) {
+  x <- rlang::dots_list(...)
   purrr::map_if(purrr::compact(x), \(.x) length(.x) > 1, \(.x) glue::glue_collapse(.x, sep = ","))
 }
 

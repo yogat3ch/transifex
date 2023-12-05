@@ -4,7 +4,7 @@ resources_list <- function(filter_slug = NULL, filter_name = NULL, filter_projec
     `filter[name]` = filter_name,
     `filter[project]` = filter_project,
     `page[cursor]` = page
-  ))
+  )
   req <- req_init() |>
     httr2::req_url_path("resources") |>
     httr2::req_url_query(!!!query)

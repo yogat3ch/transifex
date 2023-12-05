@@ -9,7 +9,7 @@ get_resource_strings_collection <- function(resource = filter_string(organizatio
     `filter[tags][query]` = tag_query,
     limit = limit,
     `page[cursor]` = page
-  ))
+  )
 
   req <- req_init() |>
     httr2::req_url_path("resource_strings") |>
@@ -31,7 +31,7 @@ get_resource_translations_collection <- function(resource = filter_string(organi
     `filter[resource_string][tags][query]` = tag_query,
     limit = limit,
     `page[cursor]` = page
-  ))
+  )
 
   req <- req_init() |>
     httr2::req_url_path("resource_translations") |>

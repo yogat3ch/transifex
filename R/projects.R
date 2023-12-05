@@ -4,7 +4,7 @@ projects_list <- function(filter_organization = "virga-labs", filter_slug = NULL
     `filter[name]` = filter_name,
     `filter[organization]` = prefix$organization(filter_organization),
     `page[cursor]` = page
-  ))
+  )
   req <- req_init() |>
     httr2::req_url_path("projects") |>
     httr2::req_url_query(!!!query)
