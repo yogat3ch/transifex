@@ -1,5 +1,5 @@
 get_resource_strings_collection <- function(resource = filter_string(organization = "virga-labs", project = "dmdu", resource = "local_dev"), filter_gte = NULL, filter_lte = NULL, filter_key = NULL, tag_all = NULL, tag_any = NULL, tag_query = NULL, limit = 150L, page = NULL) {
-  query <- purrr::compact(list(
+  query <- compact_concat(
     `filter[resource]` = resource,
     `filter[strings_data_modified][gte]` = filter_gte,
     `filter[strings_data_modified][lte]` = filter_lte,
@@ -20,7 +20,7 @@ get_resource_strings_collection <- function(resource = filter_string(organizatio
 }
 
 get_resource_translations_collection <- function(resource = filter_string(organization = "virga-labs", project = "dmdu", resource = "local_dev"), language = filter_string(language = "es"), filter_gt = NULL, filter_lt = NULL, filter_key = NULL, tag_all = NULL, tag_any = "rob_vul_metric", tag_query = NULL, limit = 150L, page = NULL) {
-  query <- purrr::compact(list(
+  query <- compact_concat(
     `filter[resource]` = resource,
     `filter[language]` = language,
     `filter[date_translated][gt]` = filter_gt,

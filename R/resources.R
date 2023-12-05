@@ -1,5 +1,5 @@
 resources_list <- function(filter_slug = NULL, filter_name = NULL, filter_project = filter_string(organization = "virga-labs", project = "dmdu"), page = NULL) {
-  query <- purrr::compact(list(
+  query <- compact_concat(
     `filter[slug]` = filter_slug,
     `filter[name]` = filter_name,
     `filter[project]` = filter_project,

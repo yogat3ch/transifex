@@ -1,5 +1,5 @@
 list_languages <- function(filter_code = "es", filter_code_any = NULL) {
-  query <- purrr::compact(list(
+  query <- compact_concat(
     `filter[code]` = filter_code,
     `filter[code][any]` = filter_code_any
   ))

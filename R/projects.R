@@ -1,5 +1,5 @@
 projects_list <- function(filter_organization = "virga-labs", filter_slug = NULL, filter_name = NULL, page = NULL) {
-  query <- purrr::compact(list(
+  query <- compact_concat(
     `filter[slug]` = filter_slug,
     `filter[name]` = filter_name,
     `filter[organization]` = prefix$organization(filter_organization),

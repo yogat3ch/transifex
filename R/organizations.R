@@ -1,5 +1,5 @@
 organizations_list <- function(filter_slug = NULL, page = NULL) {
-  query <- purrr::compact(list(
+  query <- compact_concat(
     `filter[slug]` = filter_slug,
     `page[cursor]` = page
   ))
