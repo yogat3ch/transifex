@@ -52,7 +52,7 @@ prefix <- purrr::map(id_segments, \(.x) {
 })
 
 filter_string <- rlang::new_function(rlang::pairlist2(!!!purrr::map(id_segment_nms, \(.x) NULL)), body = rlang::expr({
-  segs <- !!!rlang::parse_expr(capture.output(dput(rlang::list2(!!!purrr::map(id_segment_nms, rlang::sym)))))
+  segs <- !!rlang::parse_expr(capture.output(dput(rlang::list2(!!!purrr::map(id_segment_nms, rlang::sym)))))
   pieces <- purrr::imap_chr(segs, \(.x, .y) {
     prefix[[.y]](.x)
   })
