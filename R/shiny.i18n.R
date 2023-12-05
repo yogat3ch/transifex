@@ -27,7 +27,7 @@ resource_pluck <- list(
 #' @param tag_query \code{chr} See \href{Get Resource Strings Collection}{https://developers.transifex.com/reference/get_resource-strings} parameters for documentation
 #' @param file \code{chr} path of file to write json
 #'
-#' @return \code{chr} JSON
+#' @return \code{list} JSON object as list
 #' @export
 #'
 #' @examples
@@ -43,10 +43,7 @@ shiny.i18n_json <- function(resource = filter_string(organization = "virga-labs"
   resource_strings <- get_resource_strings_collection(resource = resource, tag_any = tag_any, tag_all = tag_all, tag_query = tag_query)
   resource_translations <- get_resource_translations_collection(resource = resource, tag_any = tag_any, tag_all = tag_all, tag_query = tag_query)
   json$translation <- resource_collection_to_shiny.i18n_json(resource_strings, resource_translations)
-  fn <- if (!is.null(file))
-    jsonlite::write_json
-  else
-    jsonlite::toJSON
-  fn(json, auto_unbox = TRUE, pretty = TRUE, path = file)
+  if (!is.null(file))
+    jsonlite::write_json(json, auto_unbox = TRUE, pretty = TRUE, path = file)
+  json
 }
-

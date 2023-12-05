@@ -5,6 +5,8 @@
 \title{Construct a shiny.i18n compatible JSON file}
 \usage{
 shiny.i18n_json(
+  resource = filter_string(organization = "virga-labs", project = "dmdu", resource =
+    "local_dev"),
   tag_any = NULL,
   tag_all = NULL,
   tag_query = NULL,
@@ -21,7 +23,7 @@ shiny.i18n_json(
 \item{file}{\code{chr} path of file to write json}
 }
 \value{
-\code{chr} JSON
+\code{list} JSON object as list
 }
 \description{
 Construct a shiny.i18n compatible JSON file
