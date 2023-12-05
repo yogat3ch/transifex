@@ -1,6 +1,6 @@
 Package: transifex
 Title: A minimal wrapper for the Transifex API
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: c(
     person("Stephen", "Holsenbeck", , "stephen@virgalabs.io", role = c("aut", "cre"),
            comment = "2ndary email: sholsen@alumni.emory.edu")
