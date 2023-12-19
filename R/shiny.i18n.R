@@ -40,8 +40,8 @@ shiny.i18n_json <- function(resource = filter_string(organization = "virga-labs"
     cultural_date_format = "%Y-%m-%d",
     languages = c("en", "es")
   )
-  resource_strings <- get_resource_strings_collection(resource = resource, tag_any = tag_any, tag_all = tag_all, tag_query = tag_query)
-  resource_translations <- get_resource_translations_collection(resource = resource, tag_any = tag_any, tag_all = tag_all, tag_query = tag_query)
+  resource_strings <- get_resource_strings_collection(resource = resource, tag_any = tag_any, tag_all = tag_all, tag_query = tag_query, limit = 1000L)
+  resource_translations <- get_resource_translations_collection(resource = resource, tag_any = tag_any, tag_all = tag_all, tag_query = tag_query, limit = 1000L)
   json$translation <- resource_collection_to_shiny.i18n_json(resource_strings, resource_translations)
   if (!is.null(file))
     jsonlite::write_json(json, auto_unbox = TRUE, pretty = TRUE, path = file)
