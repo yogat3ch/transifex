@@ -42,8 +42,20 @@ shiny.i18n_json <- function(resource = filter_string(organization = "virga-labs"
   )
   resource_strings <- get_resource_strings_collection(resource = resource, tag_any = tag_any, tag_all = tag_all, tag_query = tag_query, limit = 1000L)
   resource_translations <- get_resource_translations_collection(resource = resource, tag_any = tag_any, tag_all = tag_all, tag_query = tag_query, limit = 1000L)
+  check_string_translation_parity(resource_strings, resource_translations)
   json$translation <- resource_collection_to_shiny.i18n_json(resource_strings, resource_translations)
   if (!is.null(file))
     jsonlite::write_json(json, auto_unbox = TRUE, pretty = TRUE, path = file)
   json
+}
+
+check_string_translation_parity <- function(resource_strings, resource_translations) {
+  string_ids <- purrr::map_chr(resource_strings$data, "id")
+  translation_ids <- purrr::map_chr(resource_translations$data, purrr::pluck, "relationships", "resource_string", "data", "id")
+  if (length(string_ids) != length(translation_ids)) {
+    missing_ids <- setdiff(string_ids, translation_ids)
+    missing_idx <- which(string_ids %in% missing_ids)
+    missing_str <- purrr::map_chr(resource_strings$data[missing_idx], purrr::pluck, "attributes", "strings", "other")
+    UU::gbort("Translations missing for the following strings:\n{glue::glue_collapse(missing_str, sep = '\n'})\nHave you published all your translations?")
+  }
 }
